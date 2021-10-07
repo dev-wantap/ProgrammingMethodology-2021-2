@@ -13,8 +13,8 @@ public class AccountManager2 {
         BankReader reader = new BankReader();
         BankAccount primary_account = new BankAccount(0);
         BankAccount secondary_account = new BankAccount(0);
-        BankWriter primary_writer = new BankWriter("자유은행 계좌#1", primary_account);
-        BankWriter secondary_writer = new BankWriter("자유은행 계좌#2", secondary_account);
+        BankWriter primary_writer = new BankWriter("자유은행 계좌#1", primary_account,200, 100);
+        BankWriter secondary_writer = new BankWriter("자유은행 계좌#2", secondary_account, 500, 100);
         AccountController2 controller = new AccountController2(reader, primary_writer, primary_account,
                                                                       secondary_writer, secondary_account);
         controller.processTransactions();

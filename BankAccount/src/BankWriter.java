@@ -12,12 +12,13 @@ public class BankWriter extends JPanel{
 	 * @param title
 	 * @param b 
 	 */
-	public BankWriter(String title, BankAccount b) {
+	public BankWriter(String title, BankAccount b, int x, int y) {
 		bank = b;
 		JFrame f = new JFrame();
 		f.getContentPane().add(this);
 		f.setTitle(title);
 		f.setSize(WIDTH, HEIGHT);
+		f.setLocation(x, y);
 		f.setVisible(true);
 		f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
