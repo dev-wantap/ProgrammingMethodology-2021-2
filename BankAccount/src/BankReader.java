@@ -6,8 +6,7 @@ public class BankReader {
 	
 	public char readCommand(String message) {
 		input_line = JOptionPane.showInputDialog(message);
-		input_line.toUpperCase();
-		return input_line.charAt(0);
+		return input_line.toUpperCase().charAt(0);
 	}
 	
 	public int readAmount() {

@@ -58,7 +58,7 @@ public class BankAccount {
 		
 		bank[1].deposit(10000);
 		
-		bank[1] = null
+		bank[1] = null;
 		
 		
 
