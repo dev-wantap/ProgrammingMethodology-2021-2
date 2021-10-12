@@ -52,18 +52,5 @@ public class BankAccount {
 		return balance;
 	}	
 	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-		BankAccount[] bank = new BankAccount[100];
-		
-		bank[1] = new BankAccount(10000);
-		
-		bank[1].deposit(10000);
-		
-		bank[1] = null;
-		
-		
 
-	}
 }

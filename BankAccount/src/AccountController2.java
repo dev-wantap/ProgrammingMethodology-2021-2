@@ -19,7 +19,7 @@ public class AccountController2 {
      * @param w - output-view 객체
      * @param a - model 객체 */
     public AccountController2 (BankReader r, BankWriter w1, BankAccount a1,
-                                  BankWriter w2, BankAccount a2) {
+                               BankWriter w2, BankAccount a2) {
         reader = r;
         primary_writer = w1;
         secondary_writer = w2;
