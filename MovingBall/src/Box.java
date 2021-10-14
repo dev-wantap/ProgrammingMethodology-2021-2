@@ -12,4 +12,8 @@ public class Box {
     public boolean isVerticalContant(int y_pos) {
         return (y_pos <= 0 || y_pos >= BOX_SIZE);
     }
+
+    public int getBOX_SIZE() {
+        return BOX_SIZE;
+    }
 }

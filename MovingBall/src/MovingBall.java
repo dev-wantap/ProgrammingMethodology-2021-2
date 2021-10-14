@@ -16,13 +16,16 @@ public class MovingBall {
     public void move(int time_unit) {
         x_pos = x_pos + x_velocity*time_unit;
         y_pos = y_pos + y_velocity*time_unit;
-        if (box.isHorizontalContant(x_pos)) x_pos = -x_pos;
-        if (box.isVerticalContant(y_pos)) y_pos = -y_pos;
+        if (box.isHorizontalContant(x_pos)) x_velocity = -x_velocity;
+        if (box.isVerticalContant(y_pos)) y_velocity = -y_velocity;
     }
     public int getX_pos() {
         return x_pos;
     }
     public int getY_pos() {
         return y_pos;
+    }
+    public int getRadius() {
+        return radius;
     }
 }
