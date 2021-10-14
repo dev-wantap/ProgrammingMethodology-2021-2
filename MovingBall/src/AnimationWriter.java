@@ -5,9 +5,11 @@ public class AnimationWriter extends JPanel {
 
     private BoxWriter box_writer;
     private BallWriter ball_writer;
+    private BallWriter ball_writer2;
 
-    public AnimationWriter(BallWriter b, BoxWriter x, int size) {
+    public AnimationWriter(BallWriter b, BallWriter b2, BoxWriter x, int size) {
         ball_writer = b;
+        ball_writer2 = b2;
         box_writer = x;
         JFrame f = new JFrame();
         f.getContentPane().add(this);
@@ -20,5 +22,6 @@ public class AnimationWriter extends JPanel {
     public void paintComponent(Graphics g) {
         box_writer.paintComponent(g);
         ball_writer.paintComponent(g);
+        ball_writer2.paintComponent(g);
     }
 }

@@ -16,8 +16,8 @@ public class MovingBall {
     public void move(int time_unit) {
         x_pos = x_pos + x_velocity*time_unit;
         y_pos = y_pos + y_velocity*time_unit;
-        if (box.isHorizontalContant(x_pos)) x_velocity = -x_velocity;
-        if (box.isVerticalContant(y_pos)) y_velocity = -y_velocity;
+        if (box.isHorizontalContant(x_pos)) changeDirectionX();
+        if (box.isVerticalContant(y_pos)) changeDirectionY();
     }
     public int getX_pos() {
         return x_pos;
@@ -27,5 +27,11 @@ public class MovingBall {
     }
     public int getRadius() {
         return radius;
+    }
+    public void changeDirectionX() {
+        x_velocity = -x_velocity;
+    }
+    public void changeDirectionY() {
+        y_velocity = -y_velocity;
     }
 }
