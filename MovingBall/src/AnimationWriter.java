@@ -6,6 +6,7 @@ public class AnimationWriter extends JPanel {
     private BoxWriter box_writer;
     private BallWriter ball_writer;
     private BallWriter ball_writer2;
+    private int a;
 
     public AnimationWriter(BallWriter b, BallWriter b2, BoxWriter x, int size) {
         ball_writer = b;
