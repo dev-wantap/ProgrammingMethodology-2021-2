@@ -22,23 +22,23 @@ public class PuzzleWriter extends JPanel{
         PuzzlePiece[][] puzzle_board = board.contents();
         for (int row = 0; row < 4; row++) {
             for (int col = 0; col < 4; col++) {
-                paintPuzzlePiece(g, puzzle_board, row, col);
+                paintPuzzlePiece(g, puzzle_board[row][col], row, col);
             }
         }
     }
 
-    private void paintPuzzlePiece(Graphics g, PuzzlePiece[][] p, int row, int col) {
-        int x = SIZE + (row * SIZE);
-        int y = SIZE + (col * SIZE);
+    private void paintPuzzlePiece(Graphics g, PuzzlePiece p, int row, int col) {
+        int x = SIZE + (col * SIZE);
+        int y = SIZE + (row * SIZE);
         if (p == null) {
             g.setColor(Color.black);
-            g.drawRect(x, y, SIZE, SIZE);
+            g.fillRect(x, y, SIZE, SIZE);
         } else {
             g.setColor(Color.white);
             g.fillRect(x, y, SIZE, SIZE);
             g.setColor(Color.black);
             g.drawRect(x, y, SIZE, SIZE);
-            g.drawString(Integer.toString(p[row][col].getFace_value()), x + 10, y + 20);
+            g.drawString(Integer.toString(p.getFace_value()), x + 10, y + 20);
         }
     }
 
