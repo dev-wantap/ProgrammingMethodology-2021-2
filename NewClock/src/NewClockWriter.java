@@ -31,7 +31,6 @@ public class NewClockWriter extends JPanel{
         LocalTime now = LocalTime.now();
         NewTimeManager tm = new NewTimeManager(now);
         tm.reset();
-
         // 시계 각도 계산
         int minutes_angle = 90 - tm.getNowMinute() * 6;
         int hours_angle = 90 - tm.getNowHour() * 30 - tm.getNowMinute() * 2;
