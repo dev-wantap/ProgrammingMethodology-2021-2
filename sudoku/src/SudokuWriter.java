@@ -65,6 +65,11 @@ public class SudokuWriter extends JPanel {
 			g.setColor(Color.blue);
 			g.drawString(i + "", x+15, y);
 			x += SIZE;
-		}	
+		}
+
+	}
+
+	public void force_repaint() {
+		paintComponent(this.getGraphics());
 	}
 }

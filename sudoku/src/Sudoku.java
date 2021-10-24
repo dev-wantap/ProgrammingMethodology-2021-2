@@ -37,7 +37,10 @@ public class Sudoku {
 	private void createSolutionBoard() {
 		// 1~9 범위의 무작위 시퀀스 {n1,n2,n3,n4,n5,n6,n7,n8,n9}를 만들고,
 		// 이를 문서에 첨부한 그림 1과 같이 solution 배열에 배치 한다.
-		solution[0] = generateRandomPermutation(10);
+		solution[0] = generateRandomPermutation(9);
+		for (int i = 0; i < 9; i++) {
+			solution[0][i]++;
+		}
 		for (int i = 0; i < 9; i+=3) {
 			for (int j = 0; j < 3; j++) {
 				solution[3][i+j] = solution[0][i+((j+1) % 3)];
@@ -51,10 +54,8 @@ public class Sudoku {
 		for (int i = 0; i < 9; i++) {
 			solution[1][i] = solution[0][(i+3) % 9];
 			solution[2][i] = solution[0][(i+6) % 9];
-
 			solution[4][i] = solution[3][(i+3) % 9];
 			solution[5][i] = solution[3][(i+6) % 9];
-
 			solution[7][i] = solution[6][(i+3) % 9];
 			solution[8][i] = solution[6][(i+6) % 9];
 		}
@@ -142,8 +143,24 @@ public class Sudoku {
 		// new Random().nextInt(n) 메소드를 호출하면
 		// 0~n-1 범위의 정수 중에서 무작위로 하나를 고를 수 있다.
 		Random random = new Random();
-		for (int i=0; i < count; i++) {
-			solution[random.nextInt(9)][random.nextInt(9)] = 0;
+		int temp1, temp2;
+		int i = 0;
+		while(count>0){
+			int x = new Random().nextInt(9);
+			int y = new Random().nextInt(9);
+			if (puzzle_board[x][y]==0) {}
+			else {
+				puzzle_board[x][y]=0;
+				count-=1;
+			}
+		}
+		while (count>0) {
+			temp1 = random.nextInt(9);
+			temp2 = random.nextInt(9);
+			if (puzzle_board[temp1][temp2] != 0) {
+				puzzle_board[temp1][temp2] = 0;
+				count--;
+			}
 		}
 	}
 	
@@ -168,13 +185,12 @@ public class Sudoku {
 				return false;
 			}
 		}
+		add_num_board(digit, row, col);
+		hole_count -= 1;
 		return true;
 	}
 	public void add_num_board(int digit, int row, int col) {
 		puzzle_board[row][col] = digit;
-	}
-	public boolean check_finish() {
-		return (puzzle_board != solution);
 	}
 
 }
