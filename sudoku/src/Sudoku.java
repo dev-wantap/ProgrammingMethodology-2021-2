@@ -37,21 +37,44 @@ public class Sudoku {
 	private void createSolutionBoard() {
 		// 1~9 범위의 무작위 시퀀스 {n1,n2,n3,n4,n5,n6,n7,n8,n9}를 만들고,
 		// 이를 문서에 첨부한 그림 1과 같이 solution 배열에 배치 한다.
+		solution[0] = generateRandomPermutation(10);
+		for (int i = 0; i < 9; i+=3) {
+			for (int j = 0; j < 3; j++) {
+				solution[3][i+j] = solution[0][i+((j+1) % 3)];
+			}
+		}
+		for (int i = 0; i < 9; i+=3) {
+			for (int j = 0; j < 3; j++) {
+				solution[6][i+j] = solution[3][i+((j+1) % 3)];
+			}
+		}
+		for (int i = 0; i < 9; i++) {
+			solution[1][i] = solution[0][(i+3) % 9];
+			solution[2][i] = solution[0][(i+6) % 9];
+
+			solution[4][i] = solution[3][(i+3) % 9];
+			solution[5][i] = solution[3][(i+6) % 9];
+
+			solution[7][i] = solution[6][(i+3) % 9];
+			solution[8][i] = solution[6][(i+6) % 9];
+		}
 
 
 
-
-
-
-
+		Random random = new Random();
         // 문서에 첨부한 그림 2와 같이 가로줄 바꾸기와 세로줄 바꾸기를 무작위로 한다.
         // 무작위로 줄 바꾸기를 한다는 말은 바꿀지 말지를 무작위로 결정한다는 의미이다.
         // 가로줄 바꾸기
-		shuffleRibbons();
+		if (random.nextInt(2) == 1) {
+			shuffleRibbons();
+		}
 		// 세로줄 바꾸기
-		transpose();
-		shuffleRibbons();
-		transpose();
+		if (random.nextInt(2) == 1) {
+			transpose();
+			shuffleRibbons();
+			transpose();
+		}
+
 		// 테스트용 메소드
 		showBoard(solution);
 	}
@@ -59,12 +82,12 @@ public class Sudoku {
 	/** 0~n-1 범위의 정수 수열을 무작위로 섞은 배열을 리턴 한다.
 	 * 
 	 * @param n - 수열의 길이 
-	 * @return 0~n-1 범위의 정수를 무작위로 섞어 만든 배열 
+	 * @return 1~n-1 범위의 정수를 무작위로 섞어 만든 배열
 	 */
 	private int[] generateRandomPermutation(int n) {
 		Random random = new Random();
 	    int[] permutation = new int[n];
-	    for (int i = 0; i < n; i++) {
+	    for (int i = 1; i < n; i++) {
 	        int d = random.nextInt(i+1);
 	        permutation[i] = permutation[d];
 	        permutation[d] = i;
@@ -113,22 +136,15 @@ public class Sudoku {
 	 */
 	private void createPuzzleBoard(int count) {
 		// solution 보드를 그대로 puzzle_board에 복제한다.
-		
-			
-				
+		puzzle_board = solution.clone();
+
 		// 무작위로 빈칸을 선정한다. 빈칸은 구별을 위해서 0으로 채운다.
-		// new Random().nextInt(n) 메소드를 호출하면 
+		// new Random().nextInt(n) 메소드를 호출하면
 		// 0~n-1 범위의 정수 중에서 무작위로 하나를 고를 수 있다.
-		
-		
-		
-			
-			
-			
-				
-				
-			
-		
+		Random random = new Random();
+		for (int i=0; i < count; i++) {
+			solution[random.nextInt(9)][random.nextInt(9)] = 0;
+		}
 	}
 	
 	// [배점 0.5/2.0]
@@ -141,12 +157,24 @@ public class Sudoku {
 	 * @return 퍼즐 보드 조건에 만족하여 빈칸을 채웠으면 true, 만족하지 않으면 false 
 	 */
 	public boolean check(int digit, int row, int col) {
-		
-			
-			
-			
-		
-		
-		
+		if (puzzle_board[row][col] != 0) {
+			return false;
+		}
+		for (int i = 0; i < 9; i++) {
+			if (puzzle_board[row][i] == digit) {
+				return false;
+			}
+			if (puzzle_board[i][col] == digit) {
+				return false;
+			}
+		}
+		return true;
 	}
+	public void add_num_board(int digit, int row, int col) {
+		puzzle_board[row][col] = digit;
+	}
+	public boolean check_finish() {
+		return (puzzle_board != solution);
+	}
+
 }
