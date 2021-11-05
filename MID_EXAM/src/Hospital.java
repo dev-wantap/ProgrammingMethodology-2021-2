@@ -22,11 +22,12 @@ public class Hospital {
 	 * @return
 	 */
 	public boolean roomAvailable() {
-		if (rooms.length <=3) {
-			return true;
-		} else {
-			return false;
+		for (int i = 0; i < rooms.length; i++) {
+			if (rooms[i] == null) {
+				return true;
+			}
 		}
+		return false;
 	}
 
 	/** [2번 - 배점 5점]
@@ -36,8 +37,10 @@ public class Hospital {
 	 */
 	public Patient findPatient(int id) {
 		for (int i = 0; i < rooms.length; i++) {
-			if (rooms[i].getID() == id) {
-				return rooms[i];
+			if (!(rooms[i] == null)) {
+				if (rooms[i].getID() == id) {
+					return rooms[i];
+				}
 			}
 		}
 		return null;
@@ -45,12 +48,17 @@ public class Hospital {
 	
 	/** [3번 - 배점 5점]
 	 * 환자 p를 입실시킨다.
-	 * @param p 
+	 * @param p
 	 * @return 빈 입원실이 있어서 입실 성공하면 true, 없어서 실패하면 false
 	 */
 	public boolean admit(Patient p) {
-	
-		return true;
+		for (int i = 0; i < rooms.length; i++) {
+			if (rooms[i] == null) {
+				rooms[i] = p;
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/** [4번 - 배점 5점]
@@ -59,8 +67,13 @@ public class Hospital {
 	 * @return 환자를 찾아서 퇴실 성공하면 true, 실패하면 false
 	 */
 	public boolean discharge(Patient p) {
-		 
-		return true;
+		for (int i = 0; i < rooms.length; i++) {
+			if (rooms[i] == p) {
+				rooms[i] = null;
+				return true;
+			}
+		}
+		return false;
 	}
 	
 }
