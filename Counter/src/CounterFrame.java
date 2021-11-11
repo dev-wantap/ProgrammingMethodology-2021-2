@@ -10,6 +10,7 @@ public class CounterFrame extends JFrame {
 
     public CounterFrame(Counter c, Drawing d) {
         counter = c;
+        drawing = d;
 
 
         JButton button = new CountButton("OK", counter, this);
