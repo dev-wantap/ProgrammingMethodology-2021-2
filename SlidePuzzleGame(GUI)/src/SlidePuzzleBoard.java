@@ -26,8 +26,8 @@ public class SlidePuzzleBoard {
 
 	/** contents - 현재 퍼즐 보드를 리턴 
     * @return 퍼즐 보드 리턴  */
-	public PuzzlePiece[][] contents() { 
-		return board;
+	public PuzzlePiece getPuzzlePiece(int row, int col) {
+		return board[row][col];
 	}
 	
 	/** 이동이 가능하면, 퍼즐 조각을 빈칸으로 이동 
