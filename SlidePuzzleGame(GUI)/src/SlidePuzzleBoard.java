@@ -1,3 +1,4 @@
+import java.util.*;
 /** SlidePuzzleBoard models a slide puzzle. */ 
 public class SlidePuzzleBoard { 
 	private PuzzlePiece[][] board;
@@ -7,26 +8,33 @@ public class SlidePuzzleBoard {
 	private int empty_col;
 	// representation invariant: board[empty_row][empty_col] == null
 	
+	private boolean game_on = false;
+	
+	
 	/** Constructor - SlidePuzzleBoard 초기 퍼즐 보드 설정 - 감소하는 순으로 나열 
 	 * @param s - 퍼즐 보드 크기 */
 	public SlidePuzzleBoard() {
 		// size x size 보드 만들기
 		board = new PuzzlePiece[4][4];
 		// 퍼즐 조각 1~15를 보드에 역순으로 끼우기 
-		int number = 15;
+		int number = 1;
 		for (int row = 0; row < 4; row++)
 			for (int col = 0; col < 4; col++) {
 				board[row][col] = new PuzzlePiece(number);
-				number -= 1;
+				number += 1;
 			}
 		board[3][3] = null;
 		empty_row = 3;
 		empty_col = 3;
 	}
+	
+	public boolean gameOn() {
+		return game_on;
+	}
 
 	/** contents - 현재 퍼즐 보드를 리턴 
     * @return 퍼즐 보드 리턴  */
-	public PuzzlePiece getPuzzlePiece(int row, int col) {
+	public PuzzlePiece getPuzzlePiece(int row, int col) { 
 		return board[row][col];
 	}
 	
@@ -61,6 +69,54 @@ public class SlidePuzzleBoard {
 		empty_col = col;
 		board[empty_row][empty_col] = null;
 		return true;
+	}
+	
+	public void createPuzzleBoard() {
+		int[] numbers = generateRandomPermutation(15);
+		int i = 0;
+		for (int row = 0; row<4; row++)
+			for(int col = 0; col<4;col++) {
+				if (row != 3 || col != 3)
+					board[row][col] = new PuzzlePiece(numbers[i]+1);
+				else {
+					board[3][3] = null;
+					empty_row = 3;
+					empty_col = 3;
+				}
+				i += 1;
+			}
+		game_on = true;
+	}
+	
+	private int[] generateRandomPermutation(int n) {
+		Random random = new Random();
+		int[] permutation = new int[n];
+		for (int i = 0; i < n; i++) {
+			int d = random.nextInt(i+1);
+			permutation[i] = permutation[d];
+			permutation[d] = i;
+		}
+		return permutation;
+	}
+	
+	public boolean gameOver() {
+		if(empty_row != 3 || empty_col != 3) 
+			return false;
+		else {
+			int number = 1;
+			for (int row = 0; row<4; row++)
+				for(int col = 0; col<4;col++) {
+					if (row != 3 || col != 3) 
+						if (board[row][col].faceValue() != number) 
+							return false;
+						else
+							number += 1;
+					}
+			game_on = false;
+			return true;
+				
+		}
+		
 	}
 	
 	/** found - board[row][col]에 퍼즐 조각 v가 있는지 확인  */ 
