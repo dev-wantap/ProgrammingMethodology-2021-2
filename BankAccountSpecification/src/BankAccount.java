@@ -35,4 +35,8 @@ public class BankAccount implements BankAccountSpecification {
     public int getBalance() {
         return balance;
     }
+
+    public static void main(String[] args) {
+
+    }
 }

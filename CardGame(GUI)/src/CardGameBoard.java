@@ -3,6 +3,8 @@ import java.util.*;
 public class CardGameBoard {
     private Card[][] board;
     private boolean game_on = false;
+    private int[] first = null;
+    private int[] second = null;
 
 
     /** Constructor - SlidePuzzleBoard 초기 퍼즐 보드 설정 - 감소하는 순으로 나열
@@ -10,11 +12,11 @@ public class CardGameBoard {
     public CardGameBoard() {
         board = new Card[2][8];
         // 카드 1~8를 보드에 역순으로 끼우기
-        int[] numbers = generateRandomPermutation(8);
+        int[][] numbers = new int[][]{generateRandomPermutation(8),  generateRandomPermutation(8)};
         int number = 0;
         for (int row = 0; row < 2; row++) {
             for (int col = 0; col < 8; col++) {
-                board[row][col] = new Card("A".concat(Integer.toString(numbers[number])));
+                board[row][col] = new Card("A".concat(Integer.toString(numbers[row][number])));
                 number += 1;
             }
             number = 0;
@@ -30,11 +32,11 @@ public class CardGameBoard {
     }
 
     public void createCardGameBoard() {
-        int[] numbers = generateRandomPermutation(8);
+        int[][] numbers = new int[][]{generateRandomPermutation(8),  generateRandomPermutation(8)};
         int number = 0;
         for (int row = 0; row < 2; row++) {
             for (int col = 0; col < 8; col++) {
-                board[row][col] = new Card("A".concat(Integer.toString(numbers[number])));
+                board[row][col] = new Card("A".concat(Integer.toString(numbers[row][number])));
                 number += 1;
             }
             number = 0;
@@ -70,5 +72,50 @@ public class CardGameBoard {
             return Objects.equals(board[row][col].getFaceValue(), value);
         else
             return false;
+    }
+
+    public boolean saveRowCol(int row, int col) {
+        boolean result;
+        if (first == null) {
+            first = new int[]{row, col};
+            return true;
+        } else {
+            second = new int[] {row, col};
+            result = compare(first, second);
+            return result;
+        }
+    }
+
+    public boolean compare(int[] fir, int[]sec) {
+        if (!board[fir[0]][fir[1]].getFaceValue().equals(board[sec[0]][sec[1]].getFaceValue())) {
+
+            return false;
+        }
+        return true;
+    }
+    /*
+    public boolean compare(int[] fir, int[]sec) {
+        return board[fir[0]][fir[1]].getFaceValue().equals(board[sec[0]][sec[1]].getFaceValue());
+    }*/
+    
+    public void reset() {
+        /*try {
+            Thread.sleep(500);
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }*/
+        //wait(500);
+    	first = null;
+    	second = null;
+    }
+    
+    
+    public int[] getFirst() {
+        int[] a = new int[] {first[0], first[1]};
+        return a;
+    }
+    
+    public boolean secondCheck() {
+        return second != null;
     }
 }

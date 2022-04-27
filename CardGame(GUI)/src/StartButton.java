@@ -15,6 +15,6 @@ public class StartButton extends JButton implements ActionListener{
 
     public void actionPerformed(ActionEvent e) {
         board.createCardGameBoard();
-        frame.update();
+        frame.setAllCardInvisible();
     }
 }
